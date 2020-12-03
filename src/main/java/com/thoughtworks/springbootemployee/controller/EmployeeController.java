@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,21 +30,13 @@ public class EmployeeController {
         return employeeService.getAll();
     }
 
-    @GetMapping(params = {"page", "pageSize"})
-    public Page<Employee> getPaginatedAll(
-        @RequestParam(required = false) Integer page,
-        @RequestParam(required = false) Integer pageSize
-    ) {
-        return employeeService.getAll(page, pageSize);
-    }
-
     @GetMapping(params = "gender")
     public List<Employee> getByGender(@RequestParam String gender) {
         return employeeService.getByGender(gender);
     }
 
     @GetMapping("/{employeeId}")
-    public Employee get(@PathVariable Integer employeeId) {
+    public Employee get(@PathVariable String employeeId) {
         return employeeService.get(employeeId);
     }
 
@@ -56,12 +47,12 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{employeeId}")
-    public void delete(@PathVariable Integer employeeId) {
+    public void delete(@PathVariable String employeeId) {
         employeeService.delete(employeeId);
     }
 
     @PutMapping("/{employeeId}")
-    public Employee update(@PathVariable Integer employeeId, @RequestBody Employee employeeRequest) {
+    public Employee update(@PathVariable String employeeId, @RequestBody Employee employeeRequest) {
         return employeeService.update(employeeId, employeeRequest);
     }
 }
